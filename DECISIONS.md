@@ -140,18 +140,108 @@ only quantity that moves clients-per-employee.
 If that number is not tracked from the first client, "services as software" is
 narrative rather than a plan.
 
-### 3.2 Who carries the compliance risk?
+### 3.2 Who carries the compliance risk? — DECIDED, 27 October 2026
 
-The system will draft GSTR-1 and GSTR-3B figures. Somebody signs the return. If
-that is Sumit, his membership is exposed, not the software.
+**Decision: a partner chartered accountant, not Sumit, paid per signature at a
+rate that varies by work type.**
 
-This is a liability ceiling, not an engineering gap. No amount of model quality
-removes it. It means every cell in the Wishlist marked "Fully automate" that
-touches a filing, a payment or a tax judgement is unreachable by design. The
-document already half concedes this in its section 4.
+The underlying constraint is unchanged. Somebody signs the return and carries
+the exposure, and no amount of model quality removes that. Every cell in the
+Wishlist marked "Fully automate" that touches a filing, a payment or a tax
+judgement remains unreachable by design.
 
-**Write the ceiling into the scope now,** or the team will spend a year chasing
-an automation target that was never available.
+What the decision does change is that signing capacity becomes **purchasable
+rather than fixed.** Add signers, add capacity. Sumit's time goes to judgement,
+supervision and encoding rules rather than to signature volume, and the signer
+is a variable cost rather than an employee — which keeps revenue per employee
+high. That is the right shape.
+
+Three problems come with it.
+
+#### Per-signature payment inverts the incentive on review
+
+The entire compliance control rests on the signer actually examining what they
+sign. Paying per signature makes review time a pure cost to the signer, so the
+rational signer signs quickly and does not look. This is structural; choosing a
+conscientious person delays the problem rather than solving it. It is worst on
+cheap work types, where a small per-signature fee buys a correspondingly small
+amount of attention.
+
+**Change the payment shape** — a retainer plus volume, or payment for review
+time with a volume floor — and instrument the control:
+
+> **Signer query and rejection rate:** the percentage of submissions the signer
+> sends back. If it trends towards zero, the control has become theatre, and we
+> will discover that during a notice rather than before one.
+
+A signer who never rejects anything is a warning sign, not an efficient one.
+
+#### Whose engagement is it?
+
+Not yet answered, and load-bearing. Two structures, which are opposite
+businesses:
+
+- **(i) The client engages the new firm,** which subcontracts the signature.
+  The firm owns the relationship and the revenue. Presumably the intent.
+- **(ii) The client engages the signing CA's firm,** and the new firm is a
+  back-office provider to it. Cleaner on professional-conduct grounds, but we
+  do not own the client and can be swapped out.
+
+Choose (i) or (ii), then verify that the chosen structure survives ICAI rules.
+Specific items for Sumit and a lawyer to confirm — these are flagged for
+checking, not stated as settled law:
+
+- **Fee sharing with non-members.** ICAI's First Schedule restricts a member
+  from sharing professional fees with non-members. A non-CA entity collecting
+  the client fee and paying a CA per signature sits close to this. Likely the
+  binding constraint on structure (i).
+- **Certifying without sufficient examination** is explicit professional
+  misconduct. Per-signature economics are precisely the fact pattern a
+  disciplinary committee would examine.
+- **Whether a non-CA entity may hold out as providing attest or compliance
+  work at all,** which depends on how the new firm is registered.
+- **Tax audit ceilings per member** apply if scope ever widens from returns to
+  audits. Not binding today; binding the day it changes.
+
+#### Concentration risk
+
+One partner CA signing hundreds of returns is a single point of failure:
+illness, disagreement, disciplinary action, or simply repricing once they
+realise they are the bottleneck. **Name a second signer before we need one.**
+
+#### Indemnity and unit economics
+
+If a return is wrong, the signer is exposed first and will pursue the preparer.
+Settle in the signer agreement: who carries professional indemnity insurance,
+and a written scope of what the signer is relying on. Note that if the firm
+indemnifies the signer, the firm has reabsorbed the compliance risk and the
+benefit of externalising it is partly lost.
+
+Signature cost is now a per-client variable cost and belongs in the 3.1
+arithmetic. At a ₹10,000 monthly fee, every rupee of monthly signature cost
+comes directly off margin.
+
+#### What this requires us to build
+
+This is the first concrete product requirement the decisions have produced.
+
+An external signer, paid per signature and working under time pressure, cannot
+be asked to log into ERPNext and investigate. The system must hand them a
+**self-contained review packet**:
+
+- what is being filed, on one screen
+- what changed against the previous period
+- what the system flagged
+- what the accountant overrode, and the reason given
+- the open exceptions list
+- a generated statement of what the signer is relying on
+
+Everything shown must be **logged against the signer's identity** — what they
+were shown, when, and what they did. That record is their defence and ours.
+
+The packet needs a **reject or query path cheap enough that they will use it.**
+If raising a query costs the signer money, queries stop, and with them the
+control.
 
 ### 3.3 What does one real client month look like, measured?
 
@@ -249,6 +339,8 @@ In rough order of strength:
 **Settled**
 
 - ~~(a), (b) or (c)?~~ → **(a), an AI-native CA firm. See 3.1.**
+- ~~Who signs?~~ → **A partner CA, not Sumit, paid per signature by work
+  type. See 3.2.**
 
 **Open**
 
@@ -256,11 +348,15 @@ In rough order of strength:
    fewer clients at a fee well above the going rate? See the table in 3.1.
 2. **Who owns distribution,** and where do clients fifty through three hundred
    come from?
-3. **What is T** — the minutes Sumit needs to review and sign one GSTR-3B
-   responsibly? This sets the hard ceiling on clients per signing CA.
-4. Which client is the instrumented pilot, and will they agree to it?
-5. Does Sumit sign the returns the system drafts, or does the client?
-6. Does Girman bill the new firm for engineering, or is it equity in kind?
+3. **Structure (i) or (ii)** — does the client engage us, or the signing CA's
+   firm? See 3.2. Needs a lawyer and an ICAI check, not an opinion.
+4. **What does a signature cost per work type, and how many minutes of review
+   does that buy?** Replaces the earlier question about Sumit's capacity.
+5. **Who is the second signer?**
+6. Which client is the instrumented pilot, and will they agree to it?
+7. Who carries professional indemnity insurance — the signer, the firm, or
+   both?
+8. Does Girman bill the new firm for engineering, or is it equity in kind?
 
 ---
 
