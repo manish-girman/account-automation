@@ -3,7 +3,7 @@ app_title = "Account Automation"
 app_publisher = "Girman Tech"
 app_description = "AI-native accounting automation layer for ERPNext"
 app_email = "manish@girmantech.com"
-app_license = "mit"
+app_license = "proprietary"
 
 # Apps
 # ------------------
