@@ -57,29 +57,88 @@ on, but it is the single most important thing the document reveals.
 
 ## 3. Three questions to settle first
 
-### 3.1 Which business are we in?
+### 3.1 Which business are we in? — DECIDED, 27 October 2026
 
-Three different companies are hiding behind this document.
+Three options were on the table: (a) a CA practice that runs cheaper, (b) a
+product sold to other CAs and traders, (c) an ERPNext add-on sold into Girman's
+implementation base.
 
-**(a) A CA practice that runs cheaper.** The users are Sumit's staff. Revenue is
-the existing accounting fee at a better margin. The first build is an internal
-pipeline — no polish, no multi-tenancy, no onboarding.
+**Decision: (a).** An AI-native CA firm. Services as software. Very high
+revenue per employee, achieved through a high degree of automation. We sell the
+outcome — books kept, returns filed — not the tool.
 
-**(b) A product sold to other CAs and traders.** Revenue is subscription. The
-first build is distribution, multi-tenancy and onboarding. Document extraction
-is not the hard part here; signing the fiftieth firm is.
+#### What this rules out
 
-**(c) An ERPNext add-on sold into Girman's implementation base.** Revenue is
-licence plus implementation. The first build is a Frappe app that installs
-cleanly on any ERPNext site.
+(b) and (c) are off the table, and we should say so rather than calling them
+phase two. The consequences are large and mostly favourable:
 
-These share very little work in the first six months. Choosing wrong is
-expensive: (a) to (b) is a rewrite, not a refactor.
+- The code is a **cost centre, not a product.** It needs to be correct and
+  fast, not saleable.
+- No multi-tenancy, no onboarding flows, no configurability, no pricing page,
+  no software sales motion.
+- We may hard-code our own firm's rules. Internal tools are allowed to be
+  opinionated and specific. This is a significant speed advantage.
 
-Sumit's contribution to the firm is domain knowledge, a client book and
-credibility. That argues for (a) first, (c) second, and (b) only once (a) has
-proved the unit economics. That is an inference, not a decision. **Make the
-decision explicitly.**
+The cost: extracting a product later from an internal tool rarely works, because
+the tool comes out shaped by one firm's habits. We should assume we are not
+doing (b).
+
+#### The metric this commits us to
+
+Revenue per employee is now the north star. Not documents processed, not
+extraction accuracy.
+
+    revenue per employee = clients per employee × annual fee per client
+
+There are only two levers, and **automation moves only the first one.**
+
+Illustrative arithmetic, to be redone with our real numbers:
+
+| Target revenue / employee | Fee per client | Clients per employee required |
+| --- | --- | --- |
+| ₹50 lakh | ₹10,000 / month | 42 |
+| ₹50 lakh | ₹25,000 / month | 17 |
+
+These describe two different companies. Forty-two clients per accountant is a
+volume business whose survival depends on client acquisition. Seventeen is a
+premium practice whose survival depends on traders agreeing to pay more than
+twice the going rate.
+
+**Open: which lever are we pulling?** This matters more than any build
+decision and should be settled next.
+
+#### Two risks this choice creates
+
+**Distribution becomes the bottleneck, not delivery.** If one accountant moves
+from twenty-five clients to a hundred, we need four times the clients to keep
+that accountant occupied. Sumit's existing book is finite. The common failure
+for an AI-native services firm is to solve delivery well and then starve: the
+automation arrives before the clients do, and senior people sit idle. We need
+an owner and a plan for clients fifty through three hundred.
+
+**Sumit's signature may be the real ceiling.** More clients per accountant
+means one chartered accountant signs many more returns. If reviewing one
+GSTR-3B responsibly takes T minutes, monthly capacity is available hours
+divided by T, no matter how good the software becomes. If that number is, for
+example, eighty returns a month, the firm caps at eighty clients per signing
+CA. Growing past it means adding partner-level CAs, which pushes revenue per
+employee back down unless they are added purely as signers. **Sumit should
+compute T this week.** It is the hard arithmetic of this choice.
+
+#### What it changes in the build
+
+The build order already proposed stands, now for a stated reason: everything we
+build must reduce **accountant-minutes per client-month**, because that is the
+only quantity that moves clients-per-employee.
+
+- Intake first. Chasing documents is pure accountant time and it scales
+  linearly with client count.
+- Review queue second. Supervision time is the metric.
+- The measurement in 3.3 now has a precise purpose: establish the baseline
+  accountant-minutes per client-month, then watch it fall every month.
+
+If that number is not tracked from the first client, "services as software" is
+narrative rather than a plan.
 
 ### 3.2 Who carries the compliance risk?
 
@@ -187,10 +246,21 @@ In rough order of strength:
 
 ## 8. Open questions for the three of us
 
-1. (a), (b) or (c)?
-2. Which client is the instrumented pilot, and will they agree to it?
-3. Does Sumit sign the returns the system drafts, or does the client?
-4. Does Girman bill the new firm for engineering, or is it equity in kind?
+**Settled**
+
+- ~~(a), (b) or (c)?~~ → **(a), an AI-native CA firm. See 3.1.**
+
+**Open**
+
+1. **Volume or premium?** High clients-per-employee at a commodity fee, or
+   fewer clients at a fee well above the going rate? See the table in 3.1.
+2. **Who owns distribution,** and where do clients fifty through three hundred
+   come from?
+3. **What is T** — the minutes Sumit needs to review and sign one GSTR-3B
+   responsibly? This sets the hard ceiling on clients per signing CA.
+4. Which client is the instrumented pilot, and will they agree to it?
+5. Does Sumit sign the returns the system drafts, or does the client?
+6. Does Girman bill the new firm for engineering, or is it equity in kind?
 
 ---
 
@@ -199,7 +269,10 @@ In rough order of strength:
 Nothing has been built against the product. What exists:
 
 - Frappe site `ca.localhost` on `frappe-bench-v16`, with ERPNext installed.
+  The setup wizard has deliberately **not** been run: company, country, fiscal
+  year and chart of accounts all depend on which client becomes the pilot.
 - This app, `account_automation`, scaffolded and empty.
 - Licence set to proprietary, pending the IP decision in section 7.
 
-No product code should be written until section 8 is answered.
+No product code should be written until the remaining questions in section 8
+are answered.
