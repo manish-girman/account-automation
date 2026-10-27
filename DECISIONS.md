@@ -8,6 +8,11 @@ This is a response to Sumit's document. It does not propose a design. It lists
 the decisions that must be made first, because the answer to "what do we build
 first" changes completely depending on them.
 
+**Start at section 9** if you have already read this once. Three documents now
+describe this business — this memo, the published landing page and the
+27 October planning meeting — and they disagree with each other. Section 9
+reconciles them and names what has to be fixed this week.
+
 ---
 
 ## 1. What the source document actually contains
@@ -357,6 +362,113 @@ In rough order of strength:
 7. Who carries professional indemnity insurance — the signer, the firm, or
    both?
 8. Does Girman bill the new firm for engineering, or is it equity in kind?
+9. **Khatā or Munim?** Two names are in flight and one is already published.
+   See 9.3.
+10. **Who owns the CA-knowledge work** the engineers asked for on 27 October?
+    Four action items are unassigned and all of them need a chartered
+    accountant. See 9.4.
+11. **Does the tax and rulings knowledge base belong in scope at all,** and if
+    so who builds it? See 9.2.
+
+---
+
+## 9. Reconciliation: this memo, the landing page, the planning meeting
+
+Three documents now describe this business and they do not agree. The gap
+between them is currently the largest risk in the project — larger than any
+technical question — because work is already being assigned against the
+version that has had the least scrutiny.
+
+The three:
+
+- **This memo**, sections 1–8.
+- **The landing page**, "Munim AI Accountancy", already published at
+  <https://claude.ai/artifact/NamW6MxD4MxGToJfEjVSWE>.
+- **The planning meeting**, 27 October 2026, 1h08m — Manish, Girish, Jai.
+  <https://app.fireflies.ai/view/AI-Native-CA-firm-planning::01M5SJVBFBN04XJMCZQFM2EBFC>
+
+### 9.1 Where all three agree
+
+Reached independently, so treat these as settled:
+
+- Document collection is the hardest part and the place to start
+  (meeting 14:23 and 14:39; section 2 of this memo).
+- WhatsApp beats a web app as the intake channel (meeting 33:09; section 6).
+- Human review comes before automation (meeting 53:35; section 3.2).
+- AI should sit behind the scenes rather than lead the pitch (meeting 58:15,
+  and the same conclusion from an outside review of the landing page).
+
+### 9.2 Scope expanded when it should have narrowed
+
+The meeting added inventory accounting with expiry, damage and weight loss;
+income tax and ITR; statutory audit; Companies Act audit reports; a tax
+knowledge base grounded in rulings and case law; model benchmarking; Hindi
+support; and company formation services.
+
+Section 5 of this memo argues against building inventory and the close
+dashboard, and against the seven-screen scope. The meeting went the other
+way. Each addition is defensible alone. Together they are several years of
+work for a firm with an empty repository and no clients.
+
+**The tax knowledge base is the one to stop and think about.** The meeting
+itself notes that rulings require validation and that case law is often
+ambiguous (51:38). That is a legal retrieval product with the worst failure
+mode available to us: a confidently wrong tax position, signed by a CA who is
+paid per signature. It has no build owner.
+
+### 9.3 Five conflicts to resolve
+
+1. **None of the eight open questions in section 8 were discussed.** The
+   meeting was entirely product. No pricing lever, no distribution owner, no
+   signature cost, no second signer, no pilot client, no indemnity, no
+   engineering billing.
+2. **Decision 3.2 did not come up at all.** The external signing CA — the
+   arrangement that makes capacity purchasable and the compliance model
+   work — is absent from the product plan built on top of it.
+3. **GSTR-2B reconciliation was assigned for in-house build** (meeting 37:23,
+   45:46). Section 5 says `india_compliance` is already on our bench, free and
+   maintained, and that the commercial end belongs to ClearTax, IRIS and
+   Cygnet. Nobody has evaluated it. Evaluate before building.
+4. **The published page contradicts a decision taken the same day.** The
+   meeting concluded that AI should stay in the background; the live page
+   leads with "Your books, closed by AI."
+5. **Two brand names are in flight.** The meeting explored "Khatā"
+   (01:01:08). The published page says "Munim AI Accountancy". Neither is
+   decided and one is already public.
+
+### 9.4 The gap that constrains everything else
+
+Four action items from the meeting are unassigned, and they are precisely the
+ones that need a chartered accountant:
+
+- collect audit report forms and tax rules
+- build GST reconciliation checks
+- validate GST numbers
+- develop customer and entity matching logic
+
+At 27:31 the product team explicitly asked for audit-report and tax context in
+order to build correctly. Sumit does not appear in the action items.
+
+The engineers have asked for domain knowledge and nobody owns supplying it.
+That is the binding constraint on every other item on the list, and it is the
+contribution the partnership is built around.
+
+### 9.5 Benchmarking without a baseline
+
+Model benchmarking is owned (meeting 01:05:20), but no one is measuring what
+an accountant currently spends per client-month. Without that baseline a
+benchmark cannot say whether we are winning, and accountant-minutes per
+client-month is the metric decision 3.1 commits us to. This is item 3 of
+section 4 and it is still not assigned.
+
+### 9.6 Fixable this week
+
+Three of these cost hours, not weeks, and should not wait for the next
+session:
+
+1. Assign the four unassigned action items to Sumit.
+2. Decide Khatā or Munim.
+3. Take the landing page down, or change the headline so it matches 58:15.
 
 ---
 
